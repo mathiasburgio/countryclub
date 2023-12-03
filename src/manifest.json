@@ -1,0 +1,17 @@
+{
+    "name": "Country club",
+    "short_name": "Country club",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "./",
+    "start_url": "./",
+    "icons": [
+        {
+            "src": "./imgs/icono2.png",
+            "type": "image/png",
+            "sizes": "400x400"
+        }
+    ]
+}
