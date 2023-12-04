@@ -157,6 +157,7 @@ router.post('/mis-turnos/reservar', async (req, res) => {
         if(!req?.session?.usuario) throw "Usuario no válido.";
         usuario = await myMongo.model("Usuario").findOne({_id: req.session.usuario._id});
         if(!usuario) throw "Usuario no válido (err code 2)";
+        if(usuario.habilitado != true) throw "Solo usuarios habilitados pueden registrar turnos.";
 
 
         const objAhora = new Date();
