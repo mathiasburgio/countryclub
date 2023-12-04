@@ -11,6 +11,7 @@ const conf = {
     horaFin: "22:00",
     fraccionHoraria: "01:00",
     reservaSoloVerificados: true,
+    tiempoCancelacion: 48,//horas antes del turno que se permite para la cancelacion
     espacios: [
         {
             nombre: "Padle 1",

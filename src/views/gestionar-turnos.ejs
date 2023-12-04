@@ -26,6 +26,7 @@
                         <th style="width:150px !important;">Fecha</th>
                         <th>Espacio</th>
                         <th>Usuario</th>
+                        <th>Estado</th>
                         <th class="text-right">Cobrado</th>
                     </tr>
                 </thead>
@@ -57,7 +58,14 @@
             <label for="">Detalle</label>
             <input type="text" name="detalle" class="form-control">
         </div>
-        <button class="btn btn-block btn-primary" name="cobrar">Cobrar</button>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-block btn-danger" name="cancelar">Cancelar</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-block btn-primary" name="cobrar">Cobrar</button>
+            </div>
+        </div>
     </div>
 </div>
 <script src="/scripts/Turnos.js"></script>

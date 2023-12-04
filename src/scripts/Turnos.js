@@ -10,6 +10,8 @@ class Turnos{
         let f = new Date();
         if(f.getDay() === 1){
             this.lunesActual = f;
+            $("[name='semana']").val(f.getDate() + "-" + fechas.MONTH_NAME[f.getMonth()]);
+            this.listarSemana();
         }else{
             this.getPrevMonday()
         }
@@ -72,8 +74,17 @@ class Turnos{
             return 0;
         })
 
+        let ahora = fechas.parse2(new Date(), "USA_FECHA_HORA")
+
         let tbody = "";
         datos.registros.forEach(tx=>{
+            let fx = fechas.parse2(tx.fecha, "USA_FECHA_HORA")
+
+            let est = "";
+            if(tx.cancelado) est = "<span class='badge badge-danger'>Cancelado</span>";
+            else if( fx > ahora ) est = "<span class='badge badge-primary'>Confirmado</span>";
+            else if( fx < ahora ) est = "<span class='badge badge-success'>Finalizado</span>";
+
             let cob = "<span class='badge badge-danger'>NO<span>";
             if(tx.pago.cobrado) cob = "<span class='badge badge-success'>SI<span>";
 
@@ -81,6 +92,7 @@ class Turnos{
                 <td style="width:150px !important;">${fechas.parse2(tx.fecha, "ARG_FECHA_HORA")}</td>
                 <td>${tx.espacio}</td>
                 <td>${tx.usuario.nombre}</td>
+                <td class="text-right">${est}</td>
                 <td class="text-right">${cob}</td>
             </tr>`
         })
@@ -101,7 +113,7 @@ class Turnos{
         })
 
         if(turno.pago.cobrado){
-            $("#modal input, #modal select, #modal button").prop("disabled", true)
+            $("#modal input, #modal select, #modal .modal-body button").prop("disabled", true)
             $("#modal [name='monto']").val(turno.pago.monto);
             $("#modal [name='medio']").val(turno.pago.medio);
             $("#modal [name='detalle']").val(turno.pago.detalle);
@@ -119,7 +131,7 @@ class Turnos{
     
                 if(isNaN(data.monto) || data.monto <= 0) throw "Monto no válido.";
                 if(!data.medio) throw "Medio de pago no válido";
-                if(data.detalle.length == 0) throw "Detalle no válido";
+                //if(data.detalle.length == 0) throw "Detalle no válido";
                 
                 let resp = await modal.addAsyncPopover({querySelector: ele, type: "yesno", message: "¿Confirma el cobro?"});
                 if(!resp) return;
@@ -132,7 +144,7 @@ class Turnos{
                 if(!ret.status) throw ret.message;
 
                 modal.config.fnOcultar2 = () =>{
-                    modal.mensaje("Cobro realizado con éxito", ()=>{
+                    modal.mensaje("COBRO realizado con éxito", ()=>{
                         this.listarSemana();
                     });
                 }
@@ -142,5 +154,33 @@ class Turnos{
                 modal.addPopover({ querySelector: ele, message: err.toString() })
             }
         })
+
+        $("#modal [name='cancelar']").click(async ev=>{
+            const ele = $(ev.currentTarget)
+            try{
+
+                let resp = await modal.addAsyncPopover({querySelector: ele, type: "yesno", message: "¿Confirma la cancelación del turno?"});
+                if(!resp) return;
+
+                let ret = await $.post({
+                    url: "/turnos/cancelar",
+                    data: {_id: turno._id}
+                });
+
+                if(!ret.status) throw ret.message;
+
+                modal.config.fnOcultar2 = () =>{
+                    modal.mensaje("Turno CANCELADO con éxito", ()=>{
+                        this.listarSemana();
+                    });
+                }
+                modal.ocultar();
+
+            }catch(err){
+                console.log(err);
+                modal.addPopover({ querySelector: ele, message: err.toString() })
+            }
+        });
+
     }
 }

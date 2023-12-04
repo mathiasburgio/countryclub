@@ -240,4 +240,43 @@ class Globals{
         }
         tabla.find("tbody").html(trs);
     }
+    separadorMiles(querySelector){
+        if(typeof querySelector == "string") querySelector = $(querySelector)
+        const separar = () =>{
+            let valor = querySelector.val();
+            valor = valor.replaceAll(" ", "");
+            let partes = valor.split(".");
+            let entero = Array.from(partes[0]);
+            let decimal = partes.length == 2 ? partes[1] : "";
+
+            let _entero = [];
+            let c = 0;
+            entero.reverse().forEach(e=>{
+                _entero.push(e);
+                c++;
+                if(c == 3){
+                    c = 0;
+                    _entero.push(" ");
+                }
+            })
+            _entero.reverse();
+            
+            entero = _entero.join("").trim();
+
+            querySelector.val(decimal ? entero + "." + decimal : entero);
+        }
+        querySelector
+        .on("focus", ()=>{
+            separar();
+        })
+        .on("keyup", ()=>{
+            separar();
+        })
+        .on("blur", ()=>{
+            let valor = querySelector.val();
+            valor = valor.replaceAll(" ", "");
+            querySelector.val(valor);
+        })
+        
+    }
 }

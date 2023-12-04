@@ -90,6 +90,26 @@ router.post("/turnos/obtener-semana", async(req, res)=>{
         res.json({status:0, message: err.toString()});
     }
 });
+router.post("/turnos/cancelar", async(req, res)=>{   
+    try{
+        if(req.session?.usuario?.administrador != true) throw "Usuario no válido.";
+
+        let ahora = fechas.parse2(new Date(), "USA_FECHA_HORA");
+
+        const turno = await myMongo.model("Turno").findOne({_id: req.fields._id});
+        let turnoMenosLimite = new Date(turno.fecha);
+        turnoMenosLimite.setHours(turnoMenosLimite.getHours() - configurar.conf.tiempoCancelacion);
+        let limite = fechas.parse2(turnoMenosLimite, "USA_FECHA_HORA");
+
+        if(ahora > limite) throw `Los turnos solo se pueden cancelar hasta ${configurar.conf.tiempoCancelacion}hs antes del mismo`;
+
+        let ret = await myMongo.model("Turno").updateOne({ _id: req.fields._id },{ cancelado: true });
+        res.json({status:1});
+    }catch(err){
+        console.log(err);
+        res.json({status:0, message: err.toString()});
+    }
+});
 router.post("/turnos/cobrar", async(req, res)=>{   
     try{
         if(req.session?.usuario?.administrador != true) throw "Usuario no válido.";
@@ -160,7 +180,7 @@ router.post('/mis-turnos/reservar', async (req, res) => {
         if(!objEspacio) throw "Espacio / Cancha no válida.";
 
         const turnosFijos = await myMongo.model("TurnoFijo").find();
-        let existe1 = turnosFijos.find(tf=>Number(tf.dia) == objFecha.getDay() && tf.hora == hora && tf.espacio == objEspacio.nombre);
+        let existe1 = turnosFijos.find(tf=>Number(tf.dia) == objFecha.getDay() && tf.hora == hora && tf.espacio == objEspacio.nombre && tf.cancelado == false);
         if(existe1) throw "Upsss, parece que existe un turno fijo aquí.";
 
         let existe2 = await myMongo.model("Turno").findOne({

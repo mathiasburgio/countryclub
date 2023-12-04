@@ -99,13 +99,17 @@ server.use("/scripts", express.static(__dirname + "/src/scripts"));
 server.use("/styles", express.static(__dirname + "/src/styles"));
 server.use("/imgs", express.static(__dirname + "/src/imgs"));
 
-server.use((req, res, next) => {
-    res.status(404).sendFile(__dirname + "/src/resources/404.html")
-})
-
 server.get("/ping", (req, res)=>{
     res.send("pong");
     res.end();
+})
+
+server.get("/precios", (req, res)=>{
+    res.sendFile( path.join(__dirname, "src", "views", "precios.html") );
+})
+
+server.use((req, res, next) => {
+    res.status(404).sendFile(__dirname + "/src/resources/404.html")
 })
 
 const privateKey  = process.env.NODE_ENV != 'development' ? fs.readFileSync(__dirname + '/nubelar.com.key', 'utf8') : null;
