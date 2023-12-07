@@ -70,6 +70,7 @@ class Usuarios{
         $("#modal [name='administrador']").prop("checked", usuario.administrador);
         $("#modal [name='habilitado']").prop("checked", usuario.habilitado);
         $("#modal [name='socio']").prop("checked", usuario.socio);
+        $("#modal [name='especial']").prop("checked", usuario.especial);
 
         $("#modal [name='guardar']").click(async ev=>{
             const ele = $(ev.currentTarget);
@@ -84,6 +85,7 @@ class Usuarios{
                 administrador: $("#modal [name='administrador']").prop("checked"),
                 habilitado: $("#modal [name='habilitado']").prop("checked"),
                 socio: $("#modal [name='socio']").prop("checked"),
+                especial: $("#modal [name='especial']").prop("checked"),
             };
 
             if(data.nombre.length < 3){

@@ -2,10 +2,11 @@ const { Router } = require("express")
 const router = Router()
 const path = require("path")
 const fechas = require("./../resources/Fechas");
+const fs = require("fs");
 var myMongo = null;
 
 //NOTA===========>> AL CAMBIAR LA CONFIGURACION BORRAR TODOS LOS TURNOS FIJOS
-const conf = {
+let conf = {
     diasDisponibles: "0-6",//domingo a sabado
     horaInicio: "07:00",
     horaFin: "22:00",
@@ -41,6 +42,9 @@ const conf = {
 };
 module.exports.conf = conf;
 
+module.exports.readConf = () => {
+    conf = fs.readFileSync( path.join(__dirname, "..", "..", "configuracion.json"), "utf-8" );
+};
 
 module.exports.setMongoose = (conn) =>{ 
     myMongo = conn;

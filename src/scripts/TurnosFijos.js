@@ -1,11 +1,11 @@
-class Configurar{
+class TurnosFijos{
     constructor(){
     }
     ini(){
         _datos = JSON.parse(_datos);
         G.verificarUsuario();
 
-        let opt1 = G.getOptions({arr: _datos.conf.detalleFijo, value: "detalle", label: "detalle"});
+        let opt1 = G.getOptions({arr: _datos.usuariosEspeciales, value: "_id", label: "nombre"});
         let opt2 = G.getOptions({arr: _datos.conf.espacios, value: "nombre", label: "nombre"});
         $("[name='turnos-fijos'] [name='detalleFijo']").append(opt1);
         $("[name='turnos-fijos'] [name='espacio']").append(opt2);
@@ -80,12 +80,14 @@ class Configurar{
                 let resp = await modal.pregunta("Confirma agregar turno fijo?");
                 if(!resp) return;
 
+                let usuario = _datos.usuariosEspeciales.find(u=>u._id == detalle);
                 console.log(detalle, espacio, c, h)
 
                 let ret = await $.post({
                     url: '/turno-fijo/nuevo',
                     data: {
-                        detalle,
+                        uid: usuario._id,
+                        nombre: usuario.nombre,
                         espacio,
                         dia: c,
                         hora: h
@@ -105,7 +107,12 @@ class Configurar{
             if(espacio == fx.espacio){
                 let celda = $("[name='turnos-fijos'] tbody [h='" + fx.hora + "'] [c='" + fx.dia + "']");
                 if(celda.length == 0) return;
-                celda.html(`<i _id='${fx._id}' class='fas fa-circle text-${fx.detalle == detalle ? "primary" : "secondary"}'></i>`);
+                if(fx.uid == detalle){
+                    celda.attr("_id", fx._id);
+                    celda.addClass("bg-primary");
+                }else{
+                    celda.addClass("bg-secondary");
+                }
             }
         });
     }

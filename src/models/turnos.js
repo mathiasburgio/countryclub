@@ -31,7 +31,8 @@ const turnoSchema = new mongoose.Schema({
     },
 });
 const turnoFijoSchema = new mongoose.Schema({
-    detalle: String,//detalle del fijo
+    uid: oid,//detalle del fijo
+    nombre: String,
     espacio: String,//nombre del espacio
     dia: Number,//domingo 0, lunes 1, ...
     hora: String//formato 24:00
@@ -63,6 +64,9 @@ router.get("/turnos-fijos", async(req, res)=>{
 
         datos.conf = configurar.conf;
         datos.turnosFijos = (await myMongo.model("TurnoFijo").find());
+        datos.usuariosEspeciales = (await myMongo.model("Usuario").find({especial: true})).map(ux=>{
+            return { _id: ux._id, nombre: ux.nombre, };
+        });
         datos.fecha = fechas.getNow(true);
 
         res.render( path.join(__dirname, "..", "views" ,"template.ejs"), 
