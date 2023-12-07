@@ -113,8 +113,8 @@ server.use((req, res, next) => {
     res.status(404).sendFile(__dirname + "/src/resources/404.html")
 })
 
-const privateKey  = process.env.NODE_ENV != 'development' ? fs.readFileSync(__dirname + '/nubelar.com.key', 'utf8') : null;
-const certificate = process.env.NODE_ENV != 'development' ? fs.readFileSync(__dirname + '/nubelar.com.crt', 'utf8') : null;
+const privateKey  = process.env.NODE_ENV != 'development' ? fs.readFileSync(__dirname + '/countryclub.com.ar.key', 'utf8') : null;
+const certificate = process.env.NODE_ENV != 'development' ? fs.readFileSync(__dirname + '/countryclub.com.ar.crt', 'utf8') : null;
 
 const httpServer = http.createServer(server);
 const httpsServer = process.env.NODE_ENV != 'development' ? https.createServer({key : privateKey, cert : certificate}, server) : null;

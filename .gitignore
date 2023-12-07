@@ -3,3 +3,6 @@
 /sessions
 .env
 configuracion.json
+.user.ini
+countruclub.com.ar.crt
+countruclub.com.ar.key
