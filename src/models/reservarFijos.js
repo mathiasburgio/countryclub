@@ -44,7 +44,7 @@ const reservarFijos = async () =>{
                     espacio: tf.espacio,
                     usuario: {
                         uid: tf.uid,
-                        nombre: tf.detalle
+                        nombre: tf.nombre
                     },
                     pago:{
                         cobrado: false
