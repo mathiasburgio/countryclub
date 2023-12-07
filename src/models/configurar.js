@@ -37,18 +37,6 @@ const conf = {
             precioGeneral: 1500,
             habilitado: true
         },
-    ],
-    detalleFijo: [
-        {
-            detalle: "Profe A",
-            uid: "",
-            habilitado: true
-        },
-        {
-            detalle: "Profe B",
-            uid: "",
-            habilitado: true
-        },
     ]
 };
 module.exports.conf = conf;
