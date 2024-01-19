@@ -187,6 +187,21 @@ router.post('/usuarios/cambiar-contrasena', async (req, res) => {
         res.json({status: 0, message: err.toString()});
     }
 });
+module.exports.setUsuarioSesion = async (req) =>{
+    if(req.session?.usuario?._id){
+        const usuario = await myMongo.model("Usuario").findOne({_id: req.session.usuario._id});
+        req.session.usuario = {
+            _id: usuario._id,
+            email: usuario.email,
+            nombre: usuario.nombre,
+            imagen: usuario.imagen,
+            administrador: usuario.administrador,
+            socio: usuario.socio,
+            numeroSocio: usuario.numeroSocio,
+        };
+        req.session.save();
+    }
+}
 module.exports.setMongoose = (conn) =>{ 
     myMongo = conn;
     myMongo.model("Usuario", usuarioSchema);
