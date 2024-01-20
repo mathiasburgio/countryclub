@@ -98,15 +98,10 @@ router.post("/turnos/cancelar", async(req, res)=>{
     try{
         if(req.session?.usuario?.administrador != true) throw "Usuario no válido.";
 
-        let ahora = fechas.parse2(new Date(), "USA_FECHA_HORA");
-
+        let fechaAhora = fechas.parse2(new Date(), "USA_FECHA_HORA");
         const turno = await myMongo.model("Turno").findOne({_id: req.fields._id});
-        let turnoMenosLimite = new Date(turno.fecha);
-        turnoMenosLimite.setHours(turnoMenosLimite.getHours() - configurar.conf.tiempoCancelacion);
-        let limite = fechas.parse2(turnoMenosLimite, "USA_FECHA_HORA");
-        //if(ahora > limite) throw `Los turnos solo se pueden cancelar hasta ${configurar.conf.tiempoCancelacion}hs antes del mismo`;
-
-        if(ahora > limite) throw `Los turnos solo se pueden cancelar hasta ${configurar.conf.tiempoCancelacion}hs antes del mismo`;
+        let fechaTurno = fechas.parse2(turno.fecha, "USA_FECHA_HORA");
+        if(fechaAhora > fechaTurno) throw "No se puede cancelar un turno pasado.";
 
         let ret = await myMongo.model("Turno").updateOne({ _id: req.fields._id },{ cancelado: true });
         res.json({status:1});
@@ -135,6 +130,12 @@ router.post("/turnos/cobrar", async(req, res)=>{
 
 router.get("/mis-turnos", async(req, res)=>{   
     try{
+
+        if(!req.session?.usuario?._id){ 
+            res.redirect("/index");
+            return;
+        }
+
         let datos = {};
         datos.usuario = req.session.usuario;
         datos.conf = configurar.conf;
