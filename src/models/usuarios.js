@@ -80,9 +80,14 @@ router.post('/usuarios/nuevo', async (req, res) => {
         data.habilitado = false;
         data.socio = false;
 
+        
+
         if(data.nombre.length < 3) throw "Nombre no válida.";
         if(stringHelpers.validateString(data.email, "email") == false) throw "Email no válido.";
         if(data.contrasena.length < 8) throw "Contraseña no válida.";
+
+        const existeEmail = await await myMongo.model("Usuario").findOne({email: email});
+        if(existeEmail) throw "Ya existe un usuario registrado con este Email";
 
         data.contrasena = await crypto.getPasswordHash(data.contrasena);
 
