@@ -78,7 +78,7 @@ class MisTurnos{
                 
                 let cc = "<span class='badge badge-danger'>No</span>";
                 if(t.pago.cobrado) cc = "<span class='badge badge-success'>Si</span>";
-                tbody += `<tr>
+                tbody += `<tr tid="${t._id}">
                     <td>${fechas.parse2(t.fecha,"ARG_FECHA_HORA")}</td>
                     <td>${t.espacio}</td>
                     <td class="text-right">${ee}</td>
@@ -87,6 +87,15 @@ class MisTurnos{
             });
         }
         $("[name='tabla-turnos'] tbody").html(tbody);
+
+        $("[name='tabla-turnos'] tbody tr").click(ev=>{
+            let tid = $(ev.currentTarget).attr("tid");
+            let tx = _datos.misTurnos.find(t=>t._id == tid);
+            if(!tx) return;
+            let ahora = fechas.parse2(_datos.fecha, "USA_FECHA_HORA");
+            let fechaTurno =  fechas.parse2(tx.fecha, "USA_FECHA_HORA");
+            if(tx.cancelado == false &&   fechaTurno >  ahora) this.cancelarTurno(tx._id);
+        })
     }
     dibujarDias(){
         //dibju el calendario
@@ -99,6 +108,7 @@ class MisTurnos{
             if(tx.espacio == espacio){
                 let celda = $("[name='tabla-horarios'] tbody [hora='" + tx.hora + "'] [dia='" + tx.dia + "']");
                 if(celda.length == 0) return;
+                celda.attr("tid", tx._id);
                 if(tx.usuario.uid == _datos.usuario._id){
                     celda.addClass("bg-success");
                 }else{
@@ -109,9 +119,19 @@ class MisTurnos{
 
         $("[name='tabla-horarios'] tbody [fecha]").click(async ev=>{
             let ele = $(ev.currentTarget);
-            if(ele.hasClass("bg-success") || ele.hasClass("bg-secondary")) return;
+            if(ele.hasClass("bg-secondary")) return;
             let dia = ele.attr("dia");
             let fecha = ele.attr("fecha");
+
+
+            //borrar turno propio
+            if( ele.hasClass("bg-success") ){
+                const tid = ele.attr("tid");
+                this.cancelarTurno(tid);
+                return;
+            }
+
+
             let resp = await modal.pregunta(`
             <b>Cancha/espacio:</b> ${espacio}
             <br><b>Fecha/Hora:</b> ${fechas.parse2(fecha,"ARG_FECHA_HORA")}
@@ -137,11 +157,7 @@ class MisTurnos{
             this.listarTurnos();
             this.dibujarDias();
 
-            if(ret.status){
-                _datos.misTurnos.push(ret.turno);
-            }else{
-                modal.mensaje(ret.message);
-            }
+            if(!ret.status) modal.mensaje(ret.message);
         });
     }
     esperar(t){
@@ -150,5 +166,25 @@ class MisTurnos{
                 resolve(true);
             }, t)
         })
+    }
+    async cancelarTurno(tid){
+        let resp = await modal.pregunta(`¿Cancelar el turno?`);
+        if(!resp) return;
+
+        let ret = await $.post({
+            url: '/mis-turnos/cancelar',
+            data: { tid: tid }
+        });
+        if(ret.status){
+            const tx = _datos.misTurnos.find(tx=>tx._id == tid);
+            if(!tx) window.reload();
+            tx.cancelado = true;
+            _datos.turnosOcupados = _datos.turnosOcupados.filter(t=>t._id != tx._id);
+    
+            this.listarTurnos();
+            this.dibujarDias();
+        }else{
+            modal.mensaje(ret.message);
+        }
     }
 }
