@@ -94,6 +94,8 @@ router.post("/turnos/obtener-semana", async(req, res)=>{
         res.json({status:0, message: err.toString()});
     }
 });
+
+//cancela turno desde admin
 router.post("/turnos/cancelar", async(req, res)=>{   
     try{
         if(req.session?.usuario?.administrador != true) throw "Usuario no válido.";
@@ -220,7 +222,7 @@ router.post('/mis-turnos/reservar', async (req, res) => {
         hoy.setHours(0);
         const turnosOcupados = await myMongo.model("Turno").find({cancelado: false, fecha: { $gte: hoy } });
         const misTurnos = usuario ? ( await myMongo.model("Turno").find({"usuario.uid": usuario._id}).sort({_id: -1}).limit(20) ) : [];
-        
+        //console.log(misTurnos);
         res.json({
             status: (hasError == false ? 1 : 0),
             message: hasError,
@@ -229,6 +231,36 @@ router.post('/mis-turnos/reservar', async (req, res) => {
             turnosOcupados: turnosOcupados,
             fecha: fechas.parse2(new Date(), "USA_FECHA_HORA"),
         });
+    }
+});
+
+//cancela turno propio
+router.post('/mis-turnos/cancelar', async (req, res) => {
+    try {
+        if(!req?.session?.usuario) throw "Usuario no válido.";
+
+        let tiempoCancelacion = Number(configurar.conf.tiempoCancelacion);
+        let turno = await myMongo.model("Turno")
+        .findOne({ _id: req.fields.tid, "usuario.uid": req.session.usuario._id });
+        if(!turno) throw "Turno no válido.";
+
+        let fechaLimite = new Date(turno.fecha);
+        fechaLimite.setHours(fechaLimite.getHours() - tiempoCancelacion);
+        const fechaLimite2 = fechas.parse2(fechaLimite, "USA_FECHA_HORA");
+        const ahora = fechas.parse2(new Date(), "USA_FECHA_HORA");
+        if(ahora > fechaLimite2) throw `Solo puede cancelar turnos ${tiempoCancelacion}hs antes del mismo`;
+
+        let resp = await myMongo.model("Turno")
+        .updateOne({
+            _id: req.fields.tid, 
+            "usuario.uid": req.session.usuario._id,
+        },{
+            cancelado: true
+        })
+        res.json({status:1, message: "Turno cancelado"})
+    }catch(err){
+        console.log(err);
+        res.json({status: 0, message: err.toString() });
     }
 });
 router.post('/turno-fijo/nuevo', async (req, res) => {
