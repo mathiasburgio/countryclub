@@ -109,6 +109,33 @@ server.get("/precios", (req, res)=>{
     res.sendFile( path.join(__dirname, "src", "views", "precios.html") );
 })
 
+server.get("/visor/:eid/:pcode", (req, res) =>{
+    try{
+        const productos = [
+            {code: 4, nombre: "Cafe", precio: 200},
+            {code: 2, nombre: "Mate", precio: 500.33},
+            {code: 3, nombre: "Té", precio: 150},
+            {code: 7793253002916, nombre: "Poet", precio: 1050},
+            {code: 6935364050719, nombre: "TP-link USB WIFI wn725n", precio: 14300},
+
+        ];
+
+        const px = productos.find(p=>p.code.toString() == req.params.pcode.toString());
+        if(px){
+            res.json({
+                name: px.nombre,
+                price: px.precio
+            })
+        }else{
+            res.json({
+                message: "Producto no encontrado"
+            })
+        }
+    }catch(err){
+
+    }
+});
+
 server.use((req, res, next) => {
     res.status(404).sendFile(__dirname + "/src/resources/404.html")
 })
