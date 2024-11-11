@@ -1,0 +1,83 @@
+<div id="nuestro-club" class="p-3">
+    <div class="titulo">Country club Roque Pérez</div>
+
+    <div class="accordion" id="acordeon">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#tab_1" aria-expanded="true" aria-controls="tab_1">
+                        Datos de contacto
+                    </button>
+                </h2>
+            </div>
+      
+          <div id="tab_1" class="collapse show" aria-labelledby="headingOne" data-parent="#acordeon">
+                <div class="card-body">
+                    <ul style="list-style: none; padding-left: 5px;">
+                        <li> 
+                            <b>Mail: </b> <span>countryclubrp@gmail.com</span>
+                        </li>
+                        <li> 
+                            <b>Facebook: </b> <a href="https://www.facebook.com/profile.php?id=100063243279783" target="_blank">Abrir perfil de Facebook</a>
+                        </li>
+                        <li> 
+                            <b>Instagram: </b> <a href="https://www.instagram.com/countryclubrp/" target="_blank">Abrir perfil de Instagram</a>
+                        </li>
+                        <li> 
+                            <b>Tél. alquiler salón y turnos tenis/padel (Diego): </b> 2227 416235 <a href="https://wa.me/5492227416235" target="_blank" class="btn btn-sm btn-success"><i class="fab fa-whatsapp"></i></a> <a href="tel:5492227416235" target="_blank" class="btn btn-sm btn-secondary"><i class="fas fa-phone"></i></a>
+                        </li>
+                        <li> 
+                            <b>Tél. consultas generales (Mónica): </b> 2227 521114 <a href="https://wa.me/5492227521114" target="_blank" class="btn btn-sm btn-success"><i class="fab fa-whatsapp"></i></a> <a href="tel:5492227416235" target="_blank" class="btn btn-sm btn-secondary"><i class="fas fa-phone"></i></a>
+                        </li>
+                    </ul>
+                </div>
+          </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#tab_2" aria-expanded="false" aria-controls="tab_2">
+                        Como llegar
+                    </button>
+                </h2>
+            </div>
+            <div id="tab_2" class="collapse" aria-labelledby="headingTwo" data-parent="#acordeon">
+                <div class="card-body">
+                    <ul style="list-style: none; padding-left: 5px;">
+                        <li> 
+                            <b>Acceso principal: </b> <span>Acceso Pedro Gutierrez y Luis Maria Campos</span>
+                        </li>
+                        <li> 
+                            <b>Acceso estacionamiento: </b> <span>Falucho y esquina Sabatte</span>
+                        </li>
+                        <li> 
+                            <b>Acceso salon de eventos: </b> <span>Acceso Pedro Gutierrez yn  esquina Falucho</span>
+                        </li>
+                    </ul>
+                    <iframe style="max-width: 90vw; max-height: 50vh; width: 90vw; height: 50vh; border: none;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1626.302159640397!2d-59.34084320923785!3d-35.390268521829746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bdbb991ec996e9%3A0xfb2dc91d7546ab2e!2sCountry%20Club%20Roque%20Perez!5e0!3m2!1ses!2sar!4v1670021297419!5m2!1ses!2sar"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#tab_3" aria-expanded="false" aria-controls="tab_3">
+                        Acerca de nuestra institución
+                    </button>
+                </h2>
+            </div>
+            <div id="tab_3" class="collapse" aria-labelledby="headingThree" data-parent="#acordeon">
+                <div class="card-body">
+                    Nacimos allá por el año 1971 en una pequeña reunión en la biblioteca de nuestra ciudad como Country Club Gimnasia y Esgrima. Sus fundadores habían soñado con el club del cual somos parte, en donde, en un predio de cuatro hectáreas desarrollamos nuestras actividades deportivas y de esparcimiento. Con el correr de los años nos hemos transformado en el club de la familia ya que tenemos todos los condimentos que la vida moderna requiere para pasarla bien con los nuestros.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/scripts/NuestroClub.js"></script>
+<script>
+    var nuestroClub = new NuestroClub();
+    window.onload = () =>{
+        nuestroClub.ini();
+    }
+</script>

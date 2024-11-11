@@ -1,0 +1,73 @@
+<div id="index" class=p-3>
+    <div class="card mt-3" name="turnos-fijos">
+        <div class="card-header">
+            <b>Turnos fijos</b>
+        </div>
+        <div class="card-body">
+            
+            <div class="form-group">
+                <label for="">Detalle</label>
+                <div class="input-group">
+                    <select class="form-control" name="detalleFijo">
+                        <option value="0" disabled selected>Seleccionar</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Espacio</label>
+                <select class="form-control" name="espacio">
+                    <option value="0" disabled selected>Seleccionar</option>
+                </select>
+            </div>
+
+            <div class="border text-center" style="min-height: 300px; overflow-y: scroll;">
+                <table class="table table-striped table-bordered table-sm mb-0" name="tabla-turnos-fijos">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>Lun</th>
+                            <th>Mar</th>
+                            <th>Mie</th>
+                            <th>Jue</th>
+                            <th>Vie</th>
+                            <th>Sab</th>
+                            <th>Dom</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-none">
+    <div id="modal_espacio">
+        <div class="form-group">
+            <label for="">Nombre</label>
+            <input type="text" name="nombre" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Precio socio</label>
+            <input type="number" name="precioSocio" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Precio general</label>
+            <input type="number" name="precioGeneral" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Habilitado</label>
+            <select name="habilitado" class="form-control">
+                <option value="1">Si</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+        <button class="btn btn-primary btn-block" name="guardar">Guardar</button>
+    </div>
+</div>
+<script src="/scripts/TurnosFijos.js"></script>
+<script>
+    var turnosFijos = new TurnosFijos();
+    window.onload = () =>{
+        turnosFijos.ini();
+    }
+</script>

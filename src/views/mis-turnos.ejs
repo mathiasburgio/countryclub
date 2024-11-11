@@ -1,0 +1,69 @@
+<div id="mis-turnos" class=p-3>
+    <div class="row text-center mb-3">
+        <div class="col-12 col-sm-6 btn-group m-auto" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" name="mis-turnos">Mis turnos</button>
+            <button type="button" class="btn btn-outline-primary" name="reservar-turno">Reservar turno</button>
+        </div>
+    </div>
+
+    <div name="tab-mis-turnos">
+        <div class="table-responsive border" style="min-height: 60vh;">
+            <table class="table table-sm mb-0" name="tabla-turnos">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Cancha</th>
+                        <th class="text-right">Estado</th>
+                        <th class="text-right">Abonado</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div name="tab-reservar-turno" class="d-none">
+        <div class="form-group">
+            <label for="">Espacio / Cancha</label>
+            <select class="form-control" name="espacio">
+                <option value="0" disabled selected>Seleccionar</option>
+            </select>
+        </div>
+        <div name="esperando" class="my-3 text-center d-none">
+            <div class="spinner-grow text-primary m-auto" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div name="tabla-horarios" class="table-responsive border d-none" style="min-height: 60vh;">
+            <i class="fas fa-circle text-secondary"></i> Ocupados
+            <i class="fas fa-circle text-success ml-2"></i> Tus reservas
+            <table class="table table-sm table-bordered table-hover text-center tabla-seleccion">
+                <thead class="thead-dark">
+                    <tr>
+                        <th></th>
+                        <th>Lun</th>
+                        <th>Mar</th>
+                        <th>Mie</th>
+                        <th>Jue</th>
+                        <th>Vie</th>
+                        <th>Sab</th>
+                        <th>Dom</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    
+</div>
+<div class="d-none">
+    <div id="modal_reservar_turno">
+        
+    </div>
+</div>
+<script src="/scripts/MisTurnos.js"></script>
+<script>
+    var misTurnos = new MisTurnos();
+    window.onload = () =>{
+        misTurnos.ini();
+    }
+</script>

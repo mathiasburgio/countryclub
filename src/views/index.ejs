@@ -1,0 +1,78 @@
+<div id="index" algo="asd" class=p-3>
+    <div class="text-center">
+        <img src="/resources/logo.png" style="max-width: 50vw;" alt="">
+    </div>
+
+    <div class="text-center my-2 d-none" name="identificado">
+        <b name="nombre" class="p-2 cp" name="nombre">Sin nombre</b>
+        <br>
+        <small class="text-muted" name="numeroSocio">#000</small>
+
+        <div class="text-center m-auto" style="width: 70%;">
+            <a href="/mis-turnos" class="btn btn-lg btn-light btn-block mt-3 border">Mis turnos</a>
+            <a href="/precios" class="btn btn-lg btn-light btn-block mt-3 border">Precios</a>
+        </div>
+    </div>
+
+    <div class="text-center my-2 d-none" name="no-identificado">
+        <div class="text-center m-auto" style="width: 70%;">
+            <button name="iniciar-session" class="btn btn-lg btn-light btn-block mt-3 border">Iniciar sesión</button>
+            <button name="registrarse" class="btn btn-lg btn-light btn-block mt-3 border">Registrarse</button>
+            <a href="/precios" class="btn btn-lg btn-light btn-block mt-3 border">Precios</a>
+        </div>
+    </div>
+</div>
+<div class="d-none">
+    <div id="modal_iniciar_sesion">
+        <div class="form-group">
+            <label for="">Email</label>
+            <input type="email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Contraseña</label>
+            <input type="password" name="contrasena" class="form-control">
+        </div>
+        <button class="btn btn-primary btn-block" name="iniciar">Iniciar sesión</button>
+    </div>
+    <div id="modal_registrarse">
+        <div class="form-group">
+            <label for="">Nombre</label>
+            <input type="text" name="nombre" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Dirección</label>
+            <input type="text" name="direccion" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Teléfono</label>
+            <input type="tel" name="telefono" class="form-control">
+            <small class="text-muted">Usar código de país y area. Ej 54 2227 ######</small>
+        </div>
+        <div class="form-group">
+            <label for="">DNI</label>
+            <input type="number" name="dni" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Número de socio</label>
+            <input type="text" name="numeroSocio" class="form-control">
+            <small class="text-muted">*Dejar vacio en caso de no tener/saber</small>
+        </div>
+        <div class="form-group">
+            <label for="">Email (se usa para iniciar sesión)</label>
+            <input type="email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Contraseña (se usa para iniciar sesión)</label>
+            <input type="password" name="contrasena" class="form-control">
+            <small class="text-muted">*Mínimo 8 caracteres</small>
+        </div>
+        <button class="btn btn-primary btn-block" name="registrarse">Registrarse</button>
+    </div>
+</div>
+<script src="/scripts/Index.js"></script>
+<script>
+    var index = new Index();
+    window.onload = () =>{
+        index.ini();
+    }
+</script>

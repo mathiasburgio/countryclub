@@ -1,0 +1,8 @@
+/node_modules
+/src/imgs/subidas
+/sessions
+.env
+configuracion.json
+.user.ini
+countryclub.com.ar.crt
+countryclub.com.ar.key

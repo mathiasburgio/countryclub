@@ -1,0 +1,30 @@
+<div id="restablecer-contrasena" class=p-3>
+    <div class="card m-auto">
+        <div class="card-header">
+            <b>Restablecer contraseña</b>
+        </div>
+        <div class="card-body">
+            <!-- <div class="form-group">
+                <label for="">Email</label>
+                <input type="text" name="email" readonly class="form-control">
+            </div> -->
+            <div class="form-group">
+                <label for="">NUEVA CONTRASEÑA</label>
+                <div class="input-group">
+                    <input type="password" autocomplete="off" name="contrasena" class="form-control">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" name="ver"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block" name="guardar">Guardar</button>
+        </div>
+    </div>
+</div>
+<script src="/scripts/RestablecerContrasena.js"></script>
+<script>
+    var restablecerContrasena = new RestablecerContrasena();
+    window.onload = () =>{
+        restablecerContrasena.ini();
+    }
+</script>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Club</title>
+    <link rel="icon" type="image/png" href="/imgs/icono2.png">
+
+    <link rel="stylesheet" href="/resources/cdns/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/cdns/all.min.css"/>
+    <link rel="stylesheet" href="/resources/cdns/brands.min.css"/>
+    <link rel="stylesheet" href="/styles/main.css">
+
+    <!-- <link rel="manifest" href="/manifest.json"> -->
+</head>
+<body>
+    <div class="container-fluid px-0">
+        <header class="py-2 text-center w-100">
+            <button id="btMenu" class="btn btn-lg btn-outline-light mt-1" ><i class="fas fa-bars"></i> <span>Menú</span></button>
+            <h1 class="text-white mt-1">Country Club</h1>    
+        </header>
+        <main>
+            <%- include(cuerpo) %>
+        </main>
+        <footer>
+
+        </footer> 
+    </div>
+    <div class="menu-backdrop d-none">
+        <div class="menu px-2">
+            <button class="btn btn-block btn-secondary my-2" name="btCerrarMenu"><i class="fas fa-chevron-left"></i>  Cerrar menú</button>
+            <div class="text-center my-2 d-none" name="identificado">
+                <b name="nombre" class="p-2">Sin nombre</b>
+                <br>
+                <small class="text-muted" name="numeroSocio">#000</small>
+            </div>
+            <ul>
+                <li class=""><a class="text-dark" href="/index">Inicio</a></li>
+                <li class="d-none"><a class="text-dark" href="/mis-turnos">Mis turnos</a></li>
+                <li class="d-none"><a class="text-dark" href="/gestionar-turnos"><small class="text-warning">(admin)</small> Gestionar turnos</a></li>
+                <li class="d-none"><a class="text-dark" href="/usuarios" class="d-none"><small class="text-warning">(admin)</small> Usuarios</a></li>
+                <li class="d-none"><a class="text-dark" href="/turnos-fijos" class="d-none"><small class="text-warning">(admin)</small> Turnos fijos</a></li>
+                <li class=""><a class="text-dark" href="/nuestro-club" >Nuestro club</a></li>
+                <li class="d-none" name="btCerrarSesion">Cerrar sesión</li>
+            </ul>
+            <div style="position: absolute; bottom: 10px; text-align: center; width: 100%; margin-left:-8px;">Creado por <b>Mathi Burgio</b> 😜</div>
+        </div>
+    </div>
+
+    <script>
+        var _datos = `<%- datos %>`;
+    </script>
+
+    <script src="/resources/cdns/jquery-3.6.1.min.js"></script>
+    <script src="/resources/cdns/jquery.inputmask.min.js"></script>
+    <script src="/resources/cdns/popper.min.js"></script>
+    <script src="/resources/cdns/bootstrap.min.js"></script>
+    <script src="/resources/Modal.js"></script>
+    <script src="/resources/Fechas.js"></script>
+
+    <script src="/scripts/Globals.js"></script>
+    <script>
+        var G = new Globals();
+        var modal = new Modal();
+        var fechas = new Fechas();
+        var usuario = {};
+    </script>
+</body>
+</html>

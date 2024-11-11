@@ -1,0 +1,63 @@
+@font-face {
+    font-family: RobotoRegular;
+    src: url(/resources/Roboto-Regular.ttf);
+}
+header{
+    background-color: #1a73e8bd;
+    font-size: 20px;
+    font-family: RobotoRegular;
+}
+header button{
+    position: absolute;
+    top: 7px;
+    left: 7px;
+}
+.menu{
+    width: 200px;
+    position: absolute;
+    left: -200px;
+    background-color: white;
+    height: 100%;
+}
+.menu .cerrar{
+    width: 80%;
+}
+.menu-backdrop{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(40,40,40,0.4);
+    z-index: 10;
+    overflow: hidden;
+    opacity: 1;
+}
+.menu ul{
+    list-style: none;
+    padding: 0;
+}
+.menu li{
+    font-size: 20px;
+    padding: 5px 0px 5px 15px;
+    cursor: pointer;
+}
+.menu li a{
+    color: #333!important;
+}
+.menu li:hover{
+    background-color: var(--light);
+}
+.cp{
+    cursor: pointer;
+}
+.titulo{
+    font-size: 1.7rem;
+    font-weight: bold;
+    border-bottom: solid 2px var(--primary);
+    margin-bottom: 10px;
+}
+.tabla-seleccion td:hover{
+    background-color: var(--warning);
+    cursor: pointer;
+}
